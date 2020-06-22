@@ -4,11 +4,13 @@ import { fab, } from '@fortawesome/free-brands-svg-icons'
 import { faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder } from '@fortawesome/free-solid-svg-icons'
 import './App.scss';
 import {SideBar, NavBar} from './parts';
-
+import {DashboardContent} from './pages';
+import {useNavBarEntity} from './entities'
 
 library.add(fab, faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder)
 
 const App = () => {
+  const [navbarEntity, {setAlertVisible}] = useNavBarEntity();
   const [isToggled, setSideBarToggled] = useState(false);
 
   const toggleSideBar = () => {
@@ -21,12 +23,18 @@ const App = () => {
   }
   return (
     <div id="wrapper">
+
       <SideBar onToggleClick = {() => toggleSideBar()}  toggle = {isToggled}/>
+
       {/** Content Wrapper */}
       <div id="content-wrapper" className="d-flex flex-column">
         {/** Main Content */}
-        <div id ="content">
+        <div id ="content" >
           <NavBar onToggleClick = { () => toggleSideBar() } toggle = {isToggled} />
+          <div onClick={() => setAlertVisible(false)}>
+          <DashboardContent title ="Dashboard"/>
+          </div>
+         
         </div>
       </div>
       

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { ActionInput, NavItem } from "./";
-import UserInfo from "./UserInfo";
+import {useNavBarEntity} from "../entities"
+
 
 const NavList = () => {
   const [isSearchVisible, setSearchVisible] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [isAlertVisible, setAlertVisible] = useState(false);
+  //const [isAlertVisible, setAlertVisible] = useState(false);
   const [isMessagesVisible, setMessagesVisible] = useState(false);
   const [isUserMenuVisible, setUserMenuVisible] = useState(false);
+  const [navBarEntity, {setAlertVisible}] = useNavBarEntity();
 
   const createSearchContent = () => {
     return (
@@ -174,7 +176,7 @@ const NavList = () => {
     setSearchVisible(false);
     setMessagesVisible(false);
     setUserMenuVisible(false);
-    setAlertVisible(!isAlertVisible);
+    setAlertVisible(!navBarEntity.isAlertVisible);
   };
   const toggleMessages = () => {
     setSearchVisible(false);
@@ -214,7 +216,7 @@ const NavList = () => {
           margin="mx-1"
           icon="fas fa-bell fa-fw"
           content={createAlertContent()}
-          show={isAlertVisible}
+          show={navBarEntity.isAlertVisible}
           openDropDown={() => toggleAlert()}
         />
 

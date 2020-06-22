@@ -7,15 +7,6 @@ const NavBar = ({onToggleClick}) => {
     const [sideBarEntity, {setToggled}] = useSideBarEntity();
     const [search, setSearch] = useState("");
 
-    const toggle = () => {
-        setToggled(!sideBarEntity.toggled);
-        if(!sideBarEntity.toggled){
-            
-        }else{
-            document.body.classList.remove('sidebar-toggled')
-        }
-        
-    }
         return (
             <>
             {/** Top Bar */}
@@ -30,6 +21,7 @@ const NavBar = ({onToggleClick}) => {
                 <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 margin-0 navbar-search">
                     <ActionInput name="Search" placeholder="Search For.." type="text" className="form-control bg-light border-0 small" value = {search} onChange={(e) => setSearch(e.target.value)}/>
                 </form>
+                
                 <NavList />
             </nav>  
             </>
