@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab, } from '@fortawesome/free-brands-svg-icons'
+import { faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder } from '@fortawesome/free-solid-svg-icons'
+import './App.scss';
+import {SideBar, NavBar} from './parts';
 
-function App() {
+
+library.add(fab, faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder)
+
+const App = () => {
+  const [isToggled, setSideBarToggled] = useState(false);
+
+  const toggleSideBar = () => {
+    if(!isToggled){
+      document.body.classList.add('sidebar-toggled');
+    }else{
+      document.body.classList.remove('sidebar-toggled');
+    }
+    setSideBarToggled(!isToggled);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="wrapper">
+      <SideBar onToggleClick = {() => toggleSideBar()}  toggle = {isToggled}/>
+      {/** Content Wrapper */}
+      <div id="content-wrapper" className="d-flex flex-column">
+        {/** Main Content */}
+        <div id ="content">
+          <NavBar onToggleClick = { () => toggleSideBar() } toggle = {isToggled} />
+        </div>
+      </div>
+      
     </div>
   );
 }
-
 export default App;
