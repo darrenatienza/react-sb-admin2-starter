@@ -10,15 +10,11 @@ import {useNavBarEntity} from './entities'
 library.add(fab, faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder)
 
 const App = () => {
-  const [navbarEntity, {setAlertVisible}] = useNavBarEntity();
+  const [navbarEntity, {closeAllPopups}] = useNavBarEntity();
   const [isToggled, setSideBarToggled] = useState(false);
 
   const toggleSideBar = () => {
-    if(!isToggled){
-      document.body.classList.add('sidebar-toggled');
-    }else{
-      document.body.classList.remove('sidebar-toggled');
-    }
+    document.body.classList.toggle('sidebar-toggled');
     setSideBarToggled(!isToggled);
   }
   return (
@@ -31,7 +27,7 @@ const App = () => {
         {/** Main Content */}
         <div id ="content" >
           <NavBar onToggleClick = { () => toggleSideBar() } toggle = {isToggled} />
-          <div onClick={() => setAlertVisible(false)}>
+          <div onClick={() => closeAllPopups()}>
           <DashboardContent title ="Dashboard"/>
           </div>
          

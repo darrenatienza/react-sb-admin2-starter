@@ -4,12 +4,12 @@ import {useNavBarEntity} from "../entities"
 
 
 const NavList = () => {
-  const [isSearchVisible, setSearchVisible] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  //const [isSearchVisible, setSearchVisible] = useState(false);
+    const [searchText, setSearchText] = useState("");
   //const [isAlertVisible, setAlertVisible] = useState(false);
-  const [isMessagesVisible, setMessagesVisible] = useState(false);
-  const [isUserMenuVisible, setUserMenuVisible] = useState(false);
-  const [navBarEntity, {setAlertVisible}] = useNavBarEntity();
+  //const [isMessagesVisible, setMessagesVisible] = useState(false);
+  //const [isUserMenuVisible, setUserMenuVisible] = useState(false);
+  const [navBarEntity, {setAlertVisible,setSearchVisible,setMessagesVisible,setUserMenuVisible}] = useNavBarEntity();
 
   const createSearchContent = () => {
     return (
@@ -182,16 +182,16 @@ const NavList = () => {
     setSearchVisible(false);
     setAlertVisible(false);
     setUserMenuVisible(false);
-    setMessagesVisible(!isMessagesVisible);
+    setMessagesVisible(!navBarEntity.isMessagesVisible);
   };
   const toggleAvatar = () => {
     setSearchVisible(false);
     setAlertVisible(false);
     setMessagesVisible(false);
-    setUserMenuVisible(!isUserMenuVisible);
+    setUserMenuVisible(!navBarEntity.isUserMenuVisible);
   };
   const toggleSearch = () => {
-    setSearchVisible(!isSearchVisible);
+    setSearchVisible(!navBarEntity.isSearchVisible);
     setAlertVisible(false);
     setMessagesVisible(false);
     setUserMenuVisible(false);
@@ -206,7 +206,7 @@ const NavList = () => {
           isVisibleOnSX={false}
           padding="p-3"
           content={createSearchContent()}
-          show={isSearchVisible}
+          show={navBarEntity.isSearchVisible}
           openDropDown={() =>toggleSearch()}
         />
 
@@ -226,7 +226,7 @@ const NavList = () => {
           margin="mx-1"
           badgeAlertCount={50}
           content={createMessagesContent()}
-          show={isMessagesVisible}
+          show={navBarEntity.isMessagesVisible}
           openDropDown={() => toggleMessages()}
         />
         <div className="topbar-divider d-none d-sm-block"></div>
@@ -235,7 +235,7 @@ const NavList = () => {
           iconType="avatar"
           icon="https://source.unsplash.com/QAB-WJcbgJk/60x60"
           content={createUserMenu()}
-          show={isUserMenuVisible}
+          show={navBarEntity.isUserMenuVisible}
           openDropDown={() => toggleAvatar()}
         />
       </ul>

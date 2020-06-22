@@ -8,12 +8,13 @@ const ActionInput = ({
     className,
     value,
     children,
-    label
+    label,
+    onClick
   }) => {
     
     return (
       <div className="input-group">
-          <input id={name} name={name} type={type} placeholder={placeholder} onChange={onChange} value={value}
+          <input id={name} name={name} type={type} placeholder={placeholder} onChange={onChange} value={value} onClick = {onClick}
                 className={className}  aria-label="name" aria-describedby="basic-addon2"/>
           <div className="input-group-append">
               <button className="btn btn-primary" type="button">

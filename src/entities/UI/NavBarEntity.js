@@ -18,3 +18,9 @@ export const setUserMenuVisible = entity => val => {
 export const setSearchVisible = entity => val => {
     entity.setState({isSearchVisible : val});
 }
+export const closeAllPopups = entity => () =>{
+    entity.setState({isAlertVisible : false});
+    entity.setState({isMessagesVisible : false});
+    entity.setState({isUserMenuVisible : false});
+    entity.setState({isSearchVisible : false});
+}
