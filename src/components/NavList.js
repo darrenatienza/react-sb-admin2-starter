@@ -16,7 +16,7 @@ const NavList = () => {
       document.removeEventListener("mousedown", handleClick);
     };
   }, []);
-  
+
   // handle click outside event
   const handleClick = (e) => {
     if (node.current.contains(e.target)) {
@@ -212,6 +212,7 @@ const NavList = () => {
     setUserMenuVisible(!isUserMenuVisible);
   };
   const toggleSearch = () => {
+    console.log("click");
     setSearchVisible(!isSearchVisible);
     setAlertVisible(false);
     setMessagesVisible(false);
@@ -228,7 +229,7 @@ const NavList = () => {
           padding="p-3"
           content={createSearchContent()}
           show={isSearchVisible}
-          openDropDown={() => toggleSearch(1)}
+          openDropDown={() => toggleSearch()}
         />
 
         <NavItem
