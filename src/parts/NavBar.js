@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavBarEntity } from "../entities";
 import { ActionInput, NavList } from "../components";
 
@@ -6,10 +6,12 @@ const NavBar = ({ onToggleClick }) => {
   const [navBarEntity, { closeAllPopups }] = useNavBarEntity();
   const [search, setSearch] = useState("");
 
+
+ 
   return (
     <>
       {/** Top Bar */}
-      <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+      <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" >
         {/** Side Bar Toggle (Top Bar) */}
         <button
           id="sidebarToggleTop"
@@ -32,7 +34,7 @@ const NavBar = ({ onToggleClick }) => {
           />
         </form>
 
-        <NavList />
+        <NavList/>
       </nav>
     </>
   );

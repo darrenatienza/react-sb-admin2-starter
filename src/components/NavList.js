@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ActionInput, NavItem } from "./";
-import {useNavBarEntity} from "../entities"
-
 
 const NavList = () => {
-  //const [isSearchVisible, setSearchVisible] = useState(false);
-    const [searchText, setSearchText] = useState("");
-  //const [isAlertVisible, setAlertVisible] = useState(false);
-  //const [isMessagesVisible, setMessagesVisible] = useState(false);
-  //const [isUserMenuVisible, setUserMenuVisible] = useState(false);
-  const [navBarEntity, {setAlertVisible,setSearchVisible,setMessagesVisible,setUserMenuVisible}] = useNavBarEntity();
+  const [isSearchVisible, setSearchVisible] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [isAlertVisible, setAlertVisible] = useState(false);
+  const [isMessagesVisible, setMessagesVisible] = useState(false);
+  const [isUserMenuVisible, setUserMenuVisible] = useState(false);
+  const node = useRef();
 
+  // register document events
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
+  
+  // handle click outside event
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      return;
+    }
+    // close all open dropdowns
+    setSearchVisible(false);
+    setMessagesVisible(false);
+    setUserMenuVisible(false);
+    setAlertVisible(false);
+  };
+
+  //create content for dropdowns
   const createSearchContent = () => {
     return (
       <form className="form-inline mr-auto w-100 navbar-search">
@@ -172,42 +191,44 @@ const NavList = () => {
     );
   };
 
+  // toggle dropdowns
   const toggleAlert = () => {
     setSearchVisible(false);
     setMessagesVisible(false);
     setUserMenuVisible(false);
-    setAlertVisible(!navBarEntity.isAlertVisible);
+    setAlertVisible(!isAlertVisible);
   };
+
   const toggleMessages = () => {
     setSearchVisible(false);
     setAlertVisible(false);
     setUserMenuVisible(false);
-    setMessagesVisible(!navBarEntity.isMessagesVisible);
+    setMessagesVisible(!isMessagesVisible);
   };
   const toggleAvatar = () => {
     setSearchVisible(false);
     setAlertVisible(false);
     setMessagesVisible(false);
-    setUserMenuVisible(!navBarEntity.isUserMenuVisible);
+    setUserMenuVisible(!isUserMenuVisible);
   };
   const toggleSearch = () => {
-    setSearchVisible(!navBarEntity.isSearchVisible);
+    setSearchVisible(!isSearchVisible);
     setAlertVisible(false);
     setMessagesVisible(false);
     setUserMenuVisible(false);
-  }
-
+  };
+  // render views
   return (
     <>
       {/** Top Bar Nav Bar */}
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto" ref={node}>
         <NavItem
           icon="fas fa-search fa-fw"
           isVisibleOnSX={false}
           padding="p-3"
           content={createSearchContent()}
-          show={navBarEntity.isSearchVisible}
-          openDropDown={() =>toggleSearch()}
+          show={isSearchVisible}
+          openDropDown={() => toggleSearch(1)}
         />
 
         <NavItem
@@ -216,7 +237,7 @@ const NavList = () => {
           margin="mx-1"
           icon="fas fa-bell fa-fw"
           content={createAlertContent()}
-          show={navBarEntity.isAlertVisible}
+          show={isAlertVisible}
           openDropDown={() => toggleAlert()}
         />
 
@@ -226,7 +247,7 @@ const NavList = () => {
           margin="mx-1"
           badgeAlertCount={50}
           content={createMessagesContent()}
-          show={navBarEntity.isMessagesVisible}
+          show={isMessagesVisible}
           openDropDown={() => toggleMessages()}
         />
         <div className="topbar-divider d-none d-sm-block"></div>
@@ -235,7 +256,7 @@ const NavList = () => {
           iconType="avatar"
           icon="https://source.unsplash.com/QAB-WJcbgJk/60x60"
           content={createUserMenu()}
-          show={navBarEntity.isUserMenuVisible}
+          show={isUserMenuVisible}
           openDropDown={() => toggleAvatar()}
         />
       </ul>
