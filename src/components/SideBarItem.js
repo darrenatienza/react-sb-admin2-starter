@@ -1,6 +1,5 @@
 import React from 'react'
-
-export const SideBarItem = (props) => {
+const SideBarItem = (props) => {
     return (
         <div >
             {/*<!-- Nav Item - Dashboard -->*/}
@@ -12,3 +11,4 @@ export const SideBarItem = (props) => {
         </div>
     )
 }
+export default SideBarItem;

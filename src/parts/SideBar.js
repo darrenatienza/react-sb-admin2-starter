@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { SideBarItem } from "./SideBarItem";
-import { SideBarCollapseItem } from "./SideBarCollapseItem";
-import { SideBarCollapseItem2 } from "./SideBarCollapseItem2";
+import { SideBarItem,SideBarCollapseItem,SideBarCollapseItem2 } from "../components";
+
 
 const SideBar = ({ onToggleClick, toggle }) => {
   const [currentActiveID, setCurrentActiveID] = useState(-1);

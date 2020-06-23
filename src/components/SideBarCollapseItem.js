@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Collapse } from "react-bootstrap";
 import { useSideBarEntity } from "../entities";
 
-export const SideBarCollapseItem = ({
+const SideBarCollapseItem = ({
   items,
   id,
   icon,
@@ -76,3 +76,4 @@ export const SideBarCollapseItem = ({
     </>
   );
 };
+export default SideBarCollapseItem;

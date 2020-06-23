@@ -6,7 +6,7 @@ import './App.scss';
 import {SideBar, NavBar} from './parts';
 import {DashboardContent} from './pages';
 import {useNavBarEntity} from './entities'
-
+import {PageHeader} from './parts'
 library.add(fab, faCheckSquare, faCoffee, faCog, faWrench, faAddressBook, faFolder)
 
 const App = () => {
@@ -28,7 +28,12 @@ const App = () => {
         <div id ="content" >
           <NavBar onToggleClick = { () => toggleSideBar() } toggle = {isToggled} />
           <div onClick={() => closeAllPopups()}>
-          <DashboardContent title ="Dashboard"/>
+          <DashboardContent title ="Dashboard" />
+
+          
+
+         
+          
           </div>
          
         </div>
