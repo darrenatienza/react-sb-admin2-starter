@@ -1,43 +1,98 @@
 import React, { useState, useRef, useEffect } from "react";
 import PageHeader from "../parts/PageHeader";
 import { UiDropDown, Card, SmallCard } from "../components";
-import { Bar,Line,Pie,Doughnut } from "react-chartjs-2";
+import { Bar, Line, Pie, Doughnut } from "react-chartjs-2";
 const DashboardContent = ({ title }) => {
   const [isEarningDropDownVisible, setEarningDropDownVisible] = useState(false);
   const [isRevenueDropdownVisible, setRevenueDropdownVisible] = useState(false);
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
     datasets: [
       {
-        label: "My First dataset",
-        backgroundColor: "rgba(255,99,132,0.2)",
-        borderColor: "rgba(255,99,132,1)",
-        borderWidth: 1,
-        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-        hoverBorderColor: "rgba(255,99,132,1)",
-        data: [90, 59, 80, 81, 56, 55, 40],
+        label: "Earnings",
+        lineTension: 0.3,
+        backgroundColor: "rgba(78, 115, 223, 0.05)",
+        borderColor: "rgba(78, 115, 223, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointBorderColor: "rgba(78, 115, 223, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: [
+          0,
+          10000,
+          5000,
+          15000,
+          10000,
+          20000,
+          15000,
+          25000,
+          20000,
+          30000,
+          25000,
+          40000,
+        ],
+      },
+    ],
+    options: [
+      {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0,
+          },
+        },
+        scales: {
+          xAxes: [
+            {
+              time: {
+                unit: "date",
+              },
+              gridLines: {
+                display: false,
+                drawBorder: false,
+              },
+              ticks: {
+                maxTicksLimit: 7,
+              },
+            },
+          ],
+          
+        },
+        legend: {
+          display: false,
+        },
       },
     ],
   };
   const pieData = {
-    labels: [
-      'Red',
-      'Blue',
-      'Yellow'
+    labels: ["Direct", "Social", "Referral"],
+    datasets: [
+      {
+        data: [300, 50, 100],
+        backgroundColor: ["#4E73DF", "#1CC88A", "#36B9CC"],
+        hoverBackgroundColor: ["#4E73DF", "#1CC88A", "#36B9CC"],
+      },
     ],
-    datasets: [{
-      data: [300, 50, 100],
-      backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-      ],
-      hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-      ]
-    }]
   };
   return (
     <div className="container-fluid">
@@ -114,16 +169,58 @@ const DashboardContent = ({ title }) => {
             title="Revenues"
             dropDownTitle="Dropdown List"
             dropDownItems={[
-              { id: 1,name: "Action", url: "#" },
-              { id: 2,name: "Another Action", url: "#" },
+              { id: 1, name: "Action", url: "#" },
+              { id: 2, name: "Another Action", url: "#" },
               //empty name for divider
-              { id: 3,name: "" },
-              { id: 4,name: "Something else here" },
+              { id: 3, name: "" },
+              { id: 4, name: "Something else here" },
             ]}
             colorTheme="primary"
           >
             <div className="chart-area">
-            <Line data={data} />
+              <Line
+                data={data}
+                options={{
+                  maintainAspectRatio: false,
+                  layout: {
+                    padding: { left: 10, right: 25, top: 25, bottom: 0 },
+                  },
+                  legend: { display: false },
+                  scales:{
+                    xAxes:[{
+                      time:{
+                        unit:"day"
+                      },
+                      gridLines:{
+                        display: false,
+                        drawBorder: false
+                      },
+                      ticks:{
+                        maxTicksLimit: 7
+                      }
+                    }],
+                    yAxes: [
+                      {
+                        ticks: {
+                          maxTicksLimit: 5,
+                          padding: 10,
+                          // Include a dollar sign in the ticks
+                          callback: function (value, index, values) {
+                            return "$" + value;
+                          },
+                        },
+                        gridLines: {
+                          color: "rgb(234, 236, 244)",
+                          zeroLineColor: "rgb(234, 236, 244)",
+                          drawBorder: false,
+                          borderDash: [2],
+                          zeroLineBorderDash: [2],
+                        },
+                      },
+                    ],
+                  }
+                }}
+              />
             </div>
           </Card>
         </div>
@@ -134,17 +231,27 @@ const DashboardContent = ({ title }) => {
             title="Revenues"
             dropDownTitle="Dropdown List"
             dropDownItems={[
-              { id: 1,name: "Action", url: "#" },
-              { id: 2,name: "Another Action", url: "#" },
+              { id: 1, name: "Action", url: "#" },
+              { id: 2, name: "Another Action", url: "#" },
               //empty name for divider
-              { id: 3,name: "" },
-              { id: 4,name: "Something else here" },
+              { id: 3, name: "" },
+              { id: 4, name: "Something else here" },
             ]}
             colorTheme="primary"
           >
             {/**Chart itself */}
             <div className="chart-pie pt-4 pb-2">
-              <Doughnut width={100} height={100}   data={pieData}   options={{cutoutPercentage:80, legend: {display:false}, maintainAspectRatio:false,tooltips: {xPadding:15,yPadding:15}}}/>
+              <Doughnut
+                width={100}
+                height={100}
+                data={pieData}
+                options={{
+                  cutoutPercentage: 80,
+                  legend: { display: false },
+                  maintainAspectRatio: false,
+                  tooltips: { xPadding: 15, yPadding: 15 },
+                }}
+              />
             </div>
             {/**Legends */}
             <div className="mt-4 text-center small">
