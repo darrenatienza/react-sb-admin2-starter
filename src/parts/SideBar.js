@@ -1,6 +1,14 @@
 import React, { useState } from "react";
-import { SideBarItem,SideBarCollapseItem,SideBarCollapseItem2 } from "../components";
-
+import {
+  SideBarItem,
+  SideBarCollapseItem,
+  SideBarCollapseItem2,
+} from "../components";
+import SideBarContainer from "../components/SideBarContainer";
+import SideBarBrand from "../components/SideBarBrand";
+import SideBarMenu from "../components/SideBarMenu";
+import SideBarMenuItemHeader from "../components/SideBarMenuItemHeader";
+import SideBarMenuItem from "../components/SideBarMenuItem";
 
 const SideBar = ({ onToggleClick, toggle }) => {
   const [currentActiveID, setCurrentActiveID] = useState(-1);
@@ -16,27 +24,44 @@ const SideBar = ({ onToggleClick, toggle }) => {
   return (
     <>
       {/* <!-- Sidebar --> */}
-      <ul
-        className={`navbar-nav bg-gradient-primary sidebar sidebar-dark accordion ${
-          toggle ? "toggled" : ""
-        }`}
-        id="accordionSidebar"
-      >
-        {/* Sidebar - Brand --> */}
-        <a
-          className="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
-        >
-          <div className="sidebar-brand-icon rotate-n-15">
-            <i className="fas fa-laugh-wink"></i>
-          </div>
-          <div className="sidebar-brand-text mx-3">
-            SB Admin <sup>2</sup>
-          </div>
-        </a>
-
+      <SideBarContainer isToggle={toggle}>
+        <SideBarBrand
+          title={
+            <>
+              SB Admin <sup>2</sup>
+            </>
+          }
+        />
         {/*<!-- Divider --> */}
         <hr className="sidebar-divider my-0" />
+        {/** Menus */}
+        <SideBarMenu
+          id={0}
+          activeItemID={currentActiveID}
+          click={() => onItemClick(0)}
+          title="Components"
+          header="Custom Components:"
+          icon="fas fa-fw fa-cog"
+          items={["Buttons", "Cards"]}
+        >
+          <SideBarMenuItemHeader name="Dashboard" />
+
+          <SideBarMenuItem name="Click Me" isSelected={false} />
+        </SideBarMenu>
+
+        {/** Menus */}
+        <SideBarMenu
+          id={0}
+          activeItemID={currentActiveID}
+          title="Dashboard"
+          header="Custom Components:"
+          icon="fas fa-fw fa-cog"
+          items={["Buttons", "Cards"]}
+        >
+          <SideBarMenuItemHeader name="Dashboard" />
+
+          <SideBarMenuItem name="Click Me" isSelected={false} />
+        </SideBarMenu>
 
         <SideBarItem title="Dashboard" icon="fas fa-fw fa-tachometer-alt" />
 
@@ -79,10 +104,19 @@ const SideBar = ({ onToggleClick, toggle }) => {
           header="Login Screens:"
           icon="fas fa-fw fa-folder"
           items={[
-            { header: "Login Screens:", collapseItems: [{id:0, desc:"Login"}, {id:1, desc:"Register"}] },
+            {
+              header: "Login Screens:",
+              collapseItems: [
+                { id: 0, desc: "Login" },
+                { id: 1, desc: "Register" },
+              ],
+            },
             {
               header: "Other Pages",
-              collapseItems: [{id: 2,desc: "404 Page"}, {id:3, desc:"Blank Page"}],
+              collapseItems: [
+                { id: 2, desc: "404 Page" },
+                { id: 3, desc: "Blank Page" },
+              ],
             },
           ]}
         />
@@ -99,7 +133,7 @@ const SideBar = ({ onToggleClick, toggle }) => {
             id="sidebarToggle"
           ></button>
         </div>
-      </ul>
+      </SideBarContainer>
       {/*<!-- End of Sidebar --> */}
     </>
   );

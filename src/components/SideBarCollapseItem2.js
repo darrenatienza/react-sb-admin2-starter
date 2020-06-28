@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Collapse } from "react-bootstrap";
-import { useSideBarEntity } from "../entities";
+
 
 const SideBarCollapseItem2 = ({
   id,

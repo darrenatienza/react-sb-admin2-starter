@@ -20,7 +20,8 @@ const App = () => {
   return (
     <div id="wrapper">
 
-      <SideBar onToggleClick = {() => toggleSideBar()}  toggle = {isToggled}/>
+    
+<SideBar onToggleClick = {() => toggleSideBar()}  toggle = {isToggled}/>
 
       {/** Content Wrapper */}
       <div id="content-wrapper" className="d-flex flex-column">
