@@ -20,29 +20,33 @@ const SideBar = ({ onToggleClick, toggle }) => {
     -1
   );
 
-  // handle clicks of side bar menu
-  // collapse all menu if current menu id is -1
-  // show single menu item at a time
+  /**
+   * Handle clicks of side bar menu.
+   * Collapse all menu if current menu id is -1.
+   * Show single menu item at a time
+   * @param {number} id 
+   */
   const onMenuClick = (id) => {
+    // remove highlight on All Menu
     setCurrentParentMenuActiveID(-1);
+    // remove highlight on All Menu Item
+    setCurrentMenuItemActiveID(-1);
+    // collapse | unCollapse active item
     if (id === currentMenuActiveID) {
       setCurrentMenuActiveID(-1);
     } else {
       setCurrentMenuActiveID(id);
     }
   };
-
-  // handle clicks of side bar menu
-  // collapse all menu if current menu id is -1
-  // show single menu item at a time
+  /**
+   * Handle clicks of side bar menu item.
+   * Highlight selected menu item.
+   * @param {number} id 
+   */
   const onMenuItemClick = (id) => {
-    if (id === currentMenuItemActiveID) {
-      setCurrentMenuItemActiveID(-1);
-    } else {
-      setCurrentMenuItemActiveID(id);
-      // this time we know that the current menu is active
-      setCurrentParentMenuActiveID(currentMenuActiveID);
-    }
+    setCurrentMenuItemActiveID(id);
+    // this time we know that the current menu is active, highlight the current menu
+    setCurrentParentMenuActiveID(currentMenuActiveID);
   };
 
   return (
@@ -56,6 +60,7 @@ const SideBar = ({ onToggleClick, toggle }) => {
             </>
           }
         />
+
         {/*<!-- Divider --> */}
         <hr className="sidebar-divider my-0" />
 

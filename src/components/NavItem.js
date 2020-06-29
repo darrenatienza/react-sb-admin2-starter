@@ -1,4 +1,4 @@
-import React from "react";
+import React, {  } from "react";
 
 const NavItem = ({
   title,
@@ -8,7 +8,7 @@ const NavItem = ({
   isVisibleOnSX,
   badgeAlertCount,
   show,
-  content,
+  children,
   openDropDown,
   padding,
   margin,
@@ -71,7 +71,7 @@ const NavItem = ({
           }`}
           aria-labelledby="searchDropdown"
         >
-          {content}
+          {children}
         </div>
       </li>
     </>

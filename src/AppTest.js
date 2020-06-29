@@ -7,12 +7,14 @@ import {
   FormControl,
   Button,
   Badge,
+  Accordion,
+  Card
 } from "react-bootstrap";
 
 const AppTest = () => {
   return (
     <div>
-      <Navbar className="navbar-nav" bg="light" expand="lg">
+      <Navbar variant="nav"  bg="light" expand="lg">
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -41,6 +43,29 @@ const AppTest = () => {
         Profile <Badge variant="danger badge-counter">1000</Badge>
         <span className="sr-only">unread messages</span>
       </Button>
+
+      <Accordion className="sidebar" defaultActiveKey="0">
+        <Card>
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+              Click me!
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="0">
+            <Card.Body>Hello! I'm the body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="1">
+              Click me!
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="1">
+            <Card.Body>Hello! I'm another body</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     </div>
   );
 };

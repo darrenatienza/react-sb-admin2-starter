@@ -1,6 +1,6 @@
 export {default as ActionInput} from './ActionInput'
 export {default as NavItem} from './NavItem'
-export {default as NavList} from './NavList'
+export {default as NavMenu} from './NavMenu'
 export {default as UserInfo} from './UserInfo'
 export {default as SideBarMenu} from './SideBarMenu'
 export { default as SideBarCollapseItem } from './SideBarCollapseItem'
