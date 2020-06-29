@@ -1,11 +1,11 @@
 import React from 'react'
 
-const SideBarMenuItem = ({name,isSelected,onClick}) => {
+const SideBarMenuItem = ({id, name,activeItemID,onClick}) => {
     return (
         <>
            <a
          
-            className={`collapse-item ${isSelected ? "active" : ""}`}
+            className={`collapse-item ${id === activeItemID ? "active" : ""}`}
             href=" # "
             onClick={onClick}
           >

@@ -1,23 +1,47 @@
 import React, { useState } from "react";
 import {
-  SideBarItem,
+  SideBarMenu,
   SideBarCollapseItem,
   SideBarCollapseItem2,
+  SideBarToggleMenu,
+  SideBarToggleMenuItem,
+  SideBarToggleMenuItemHeader,
 } from "../components";
 import SideBarContainer from "../components/SideBarContainer";
 import SideBarBrand from "../components/SideBarBrand";
-import SideBarMenu from "../components/SideBarMenu";
-import SideBarMenuItemHeader from "../components/SideBarMenuItemHeader";
-import SideBarMenuItem from "../components/SideBarMenuItem";
 
 const SideBar = ({ onToggleClick, toggle }) => {
-  const [currentActiveID, setCurrentActiveID] = useState(-1);
+  // use for toggling
+  const [currentMenuActiveID, setCurrentMenuActiveID] = useState(-1);
+  //use for highlight menu item
+  const [currentMenuItemActiveID, setCurrentMenuItemActiveID] = useState(-1);
+  // use for highlight menu title
+  const [currentParentMenuActiveID, setCurrentParentMenuActiveID] = useState(
+    -1
+  );
 
-  const onItemClick = (id) => {
-    if (id === currentActiveID) {
-      setCurrentActiveID(-1);
+  // handle clicks of side bar menu
+  // collapse all menu if current menu id is -1
+  // show single menu item at a time
+  const onMenuClick = (id) => {
+    setCurrentParentMenuActiveID(-1);
+    if (id === currentMenuActiveID) {
+      setCurrentMenuActiveID(-1);
     } else {
-      setCurrentActiveID(id);
+      setCurrentMenuActiveID(id);
+    }
+  };
+
+  // handle clicks of side bar menu
+  // collapse all menu if current menu id is -1
+  // show single menu item at a time
+  const onMenuItemClick = (id) => {
+    if (id === currentMenuItemActiveID) {
+      setCurrentMenuItemActiveID(-1);
+    } else {
+      setCurrentMenuItemActiveID(id);
+      // this time we know that the current menu is active
+      setCurrentParentMenuActiveID(currentMenuActiveID);
     }
   };
 
@@ -34,36 +58,8 @@ const SideBar = ({ onToggleClick, toggle }) => {
         />
         {/*<!-- Divider --> */}
         <hr className="sidebar-divider my-0" />
-        {/** Menus */}
-        <SideBarMenu
-          id={0}
-          activeItemID={currentActiveID}
-          click={() => onItemClick(0)}
-          title="Components"
-          header="Custom Components:"
-          icon="fas fa-fw fa-cog"
-          items={["Buttons", "Cards"]}
-        >
-          <SideBarMenuItemHeader name="Dashboard" />
 
-          <SideBarMenuItem name="Click Me" isSelected={false} />
-        </SideBarMenu>
-
-        {/** Menus */}
-        <SideBarMenu
-          id={0}
-          activeItemID={currentActiveID}
-          title="Dashboard"
-          header="Custom Components:"
-          icon="fas fa-fw fa-cog"
-          items={["Buttons", "Cards"]}
-        >
-          <SideBarMenuItemHeader name="Dashboard" />
-
-          <SideBarMenuItem name="Click Me" isSelected={false} />
-        </SideBarMenu>
-
-        <SideBarItem title="Dashboard" icon="fas fa-fw fa-tachometer-alt" />
+        <SideBarMenu title="Dashboard" icon="fas fa-fw fa-tachometer-alt" />
 
         {/*<!-- Divider --> */}
         <hr className="sidebar-divider" />
@@ -71,59 +67,118 @@ const SideBar = ({ onToggleClick, toggle }) => {
         {/*<!-- Heading -->*/}
         <div className="sidebar-heading">Interface</div>
 
-        <SideBarCollapseItem
+        {/** Menus */}
+        <SideBarToggleMenu
           id={0}
-          activeItemID={currentActiveID}
-          click={() => onItemClick(0)}
+          activeParentMenuID={currentParentMenuActiveID}
+          activeItemID={currentMenuActiveID}
+          click={() => onMenuClick(0)}
           title="Components"
           header="Custom Components:"
           icon="fas fa-fw fa-cog"
-          items={["Buttons", "Cards"]}
-        />
+        >
+          <SideBarToggleMenuItemHeader name="Dashboard" />
 
-        <SideBarCollapseItem
+          <SideBarToggleMenuItem
+            id={0}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(0)}
+            name="Buttons"
+          />
+          <SideBarToggleMenuItem
+            id={1}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(1)}
+            name="Card"
+          />
+        </SideBarToggleMenu>
+
+        {/** Menus */}
+        <SideBarToggleMenu
           id={1}
-          activeItemID={currentActiveID}
-          click={() => onItemClick(1)}
+          activeParentMenuID={currentParentMenuActiveID}
+          activeItemID={currentMenuActiveID}
+          click={() => onMenuClick(1)}
           title="Utilities"
           header="Custom Utilities:"
           icon="fas fa-fw fa-wrench"
-          items={["Colors", "Borders", "Animations", "Other"]}
-        />
+        >
+          <SideBarToggleMenuItemHeader name="Custom Utilities:" />
+
+          <SideBarToggleMenuItem
+            id={2}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(2)}
+            name="Colors"
+          />
+          <SideBarToggleMenuItem
+            id={3}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(3)}
+            name="Borders"
+          />
+          <SideBarToggleMenuItem
+            id={4}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(4)}
+            name="Animation"
+          />
+          <SideBarToggleMenuItem
+            id={5}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(5)}
+            name="Other"
+          />
+        </SideBarToggleMenu>
 
         {/*<!-- Divider --> */}
         <hr className="sidebar-divider" />
 
         <div className="sidebar-heading">Add Ons</div>
 
-        <SideBarCollapseItem2
-          id={3}
-          activeItemID={currentActiveID}
-          click={() => onItemClick(3)}
+        {/** Menus */}
+        <SideBarToggleMenu
+          id={2}
+          activeParentMenuID={currentParentMenuActiveID}
+          activeItemID={currentMenuActiveID}
+          click={() => onMenuClick(2)}
           title="Pages"
-          header="Login Screens:"
           icon="fas fa-fw fa-folder"
-          items={[
-            {
-              header: "Login Screens:",
-              collapseItems: [
-                { id: 0, desc: "Login" },
-                { id: 1, desc: "Register" },
-              ],
-            },
-            {
-              header: "Other Pages",
-              collapseItems: [
-                { id: 2, desc: "404 Page" },
-                { id: 3, desc: "Blank Page" },
-              ],
-            },
-          ]}
-        />
+          items={["Buttons", "Cards"]}
+        >
+          <SideBarToggleMenuItemHeader name="Login Screens:" />
 
-        <SideBarItem title="Chart" icon="fas fa-fw fa-chart-area" />
+          <SideBarToggleMenuItem
+            id={7}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(7)}
+            name="Login"
+          />
+          <SideBarToggleMenuItem
+            id={8}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(8)}
+            name="Register"
+          />
 
-        <SideBarItem title="Table" icon="fas fa-fw fa-table" />
+          <SideBarToggleMenuItemHeader name="Other Pages:" />
+          <SideBarToggleMenuItem
+            id={9}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(9)}
+            name="404 Page"
+          />
+          <SideBarToggleMenuItem
+            id={10}
+            activeItemID={currentMenuItemActiveID}
+            onClick={() => onMenuItemClick(10)}
+            name="Blank Page"
+          />
+        </SideBarToggleMenu>
+
+        <SideBarMenu title="Chart" icon="fas fa-fw fa-chart-area" />
+
+        <SideBarMenu title="Table" icon="fas fa-fw fa-table" />
 
         {/*<!-- Sidebar Toggler (Sidebar) --> */}
         <div className="text-center d-none d-md-inline">
